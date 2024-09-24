@@ -121,9 +121,9 @@ public class FileMessage extends Message
     }
 
     /**
-     * Read contents of file 'fileName' into this message's fileContents.
+     * Read contents of file 'filePath' into this message's fileContents.
      *
-     * @throws IOException if the file named by this.filename does
+     * @throws IOException if the file named by this.filPath does
      * not exist or cannot be opened for reading.
      */
     /* Since Java 11, there's an easy way to do this. It even handles
@@ -164,7 +164,10 @@ public class FileMessage extends Message
     {
         //TODO: Implement this. Should be similar to TextMessage class,
         //  but include filePath, fileSaveAsName, and fileContents.
-        return null;
+        return "{class=FileMessage|" + super.toString() +
+                "|filePath=" + this.filePath +
+                "|fileSaveAsName=" + this.fileSaveAsName +
+                "|fileContents=" + this.fileContents + "}";
     }
 
     @Override
