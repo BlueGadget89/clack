@@ -2,8 +2,10 @@ package TheIncredibles.clack.message;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
+import java.util.Objects;
 
 /**
  * This class represents messages containing the name and
@@ -81,7 +83,8 @@ public class FileMessage extends Message
      */
     public void setFilePath(String filePath)
     {
-        //TODO: Implement this.
+        this.filePath = filePath;
+        //might be nice to add some validation
     }
 
     /**
@@ -130,7 +133,16 @@ public class FileMessage extends Message
      */
     public void readFile() throws IOException
     {
-        //TODO: Implement this.
+        Path path = Paths.get(this.filePath);
+        if(!Files.exists(path))
+        {
+            throw new FileNotFoundException("File does not exist: " + this.filePath);
+        }
+        if(!Files.isReadable(path))
+        {
+            throw new FileNotFoundException("File is not readable: " + this.filePath);
+        }
+        this.fileContents = Files.readString(path);
     }
 
     /**
@@ -159,12 +171,25 @@ public class FileMessage extends Message
     public boolean equals(Object o)
     {
         //TODO: Implement this.
+        //check if object is being compared to itself
+        if (this == o) return true;
+        //check if object is null or not of the same class
+        if (o == null || getClass() != o.getClass()) return false;
+        //Cast to FileMessage
+        FileMessage that = (FileMessage) o;
+        //Compare all relevant fields
+        return Objects.equals(filePath, that.filePath) &&
+                Objects.equals(fileSaveAsName, that.fileSaveAsName) &&
+                Objects.equals(fileContents, that.fileContents) &&
+                Objects.equals(getUsername(), that.getUsername()) && //not sure if this needs to be called
+                Objects.equals(getTimestamp(), that.getTimestamp()); //same as above
     }
 
     @Override
     public int hashCode()
     {
         //TODO: Implement this.
+        return Objects.hash(filePath, fileSaveAsName, fileContents, getUsername(), getTimestamp());
     }
 
 }
