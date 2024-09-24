@@ -34,7 +34,7 @@ public class TextMessage extends Message
     public String[] getData()
     {
         //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
-        return null;
+        return new String[] { text };
     }
 
     /**
@@ -69,10 +69,17 @@ public class TextMessage extends Message
     @Override
     public int hashCode() {
         //TODO: Implement this according to JavaDoc
-        return 0;
+        return this.toString().hashCode();
     }
 
     //TODO: JavaDoc
+
+    /**
+     * Constructs a string representation of this object:
+     * "{class=TextMessage|" + super.toString() + "data=" + this.getData()[0] + "}"
+     *
+     * @return this object's string representation.
+     */
     @Override
     public String toString() {
         return "{class=TextMessage|"
