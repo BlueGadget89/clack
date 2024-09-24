@@ -2,6 +2,8 @@ package TheIncredibles.clack.message;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.nio.file.Path;
 
 /**
  * This class represents messages containing the name and
@@ -31,10 +33,9 @@ public class FileMessage extends Message
     {
         super(username, MSGTYPE_FILE);
         this.filePath = filePath;
-        //TODO: parse the filename portion of fileSaveAsPath, and assign
-        // it to this.fileSaveAsName. NOTE: There are Java library routines
-        // for manipulating file paths and names. Don't re-invent!
-        this.fileSaveAsName = null;
+        //parse the filename portion of fileSaveAsPath
+        Path path = Paths.get(fileSaveAsPath);
+        this.fileSaveAsName = path.getFileName().toString();
         // This really should be null when object is created.
         this.fileContents = null;
     }
@@ -69,8 +70,7 @@ public class FileMessage extends Message
      * @return the path where the file is to be written.
      */
     public String getFileSaveAsName() {
-        //TODO: Implement this. Return something other than null.
-        return null;
+        return this.fileSaveAsName;
     }
 
     /**
@@ -94,8 +94,12 @@ public class FileMessage extends Message
      */
     public void setFileSaveAsName(String fileSaveAsName)
     {
-        //TODO: implement this. Remember that Java has libraries
-        //  for manipulating file paths and names.
+        Path path = Paths.get(fileSaveAsName);
+        if(path.getNameCount() > 1)
+        {
+            throw new IllegalArgumentException("fileSaveAsName contains path components");
+        }
+        this.fileSaveAsName = fileSaveAsName;
     }
 
     /**
@@ -110,9 +114,7 @@ public class FileMessage extends Message
     @Override
     public String[] getData()
     {
-        //TODO: Implement this. Return an array as described in the
-        //  JavaDoc, not null.
-        return null;
+        return new String[]{filePath,fileSaveAsName,fileContents};
     }
 
     /**
