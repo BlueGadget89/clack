@@ -162,8 +162,6 @@ public class FileMessage extends Message
     @Override
     public String toString()
     {
-        //TODO: Implement this. Should be similar to TextMessage class,
-        //  but include filePath, fileSaveAsName, and fileContents.
         return "{class=FileMessage|" + super.toString() +
                 "|filePath=" + this.filePath +
                 "|fileSaveAsName=" + this.fileSaveAsName +
@@ -173,7 +171,6 @@ public class FileMessage extends Message
     @Override
     public boolean equals(Object o)
     {
-        //TODO: Implement this.
         //check if object is being compared to itself
         if (this == o) return true;
         //check if object is null or not of the same class
@@ -191,7 +188,6 @@ public class FileMessage extends Message
     @Override
     public int hashCode()
     {
-        //TODO: Implement this.
         return Objects.hash(filePath, fileSaveAsName, fileContents, getUsername(), getTimestamp());
     }
 

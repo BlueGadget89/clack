@@ -9,11 +9,25 @@ import java.time.LocalDate;
  */
 public abstract class Message
 {
-    //TODO: JavaDoc for each of these public "manifest constants"
+    /**
+     * Message type for encrypted messages
+     */
     public static int MSGTYPE_ENCRYPTION = 0;
+    /**
+     * Message type for file transfer messages
+     */
     public static int MSGTYPE_FILE = 10;
+    /**
+     * Message type for requesting a list of active users on the server.
+     */
     public static int MSGTYPE_LISTUSERS = 20;
+    /**
+     * Message type for logging out from the server
+     */
     public static int MSGTYPE_LOGOUT = 30;
+    /**
+     * Message type for text messages sent between users
+     */
     public static int MSGTYPE_TEXT = 40;
 
     private final int msgType;
@@ -50,8 +64,7 @@ public abstract class Message
      */
     public int getMsgType()
     {
-        //TODO: implement this (return something other than null)
-        return null;
+        return msgType;
     }
 
     /**
@@ -61,8 +74,7 @@ public abstract class Message
      */
     public LocalDate getTimestamp()
     {
-        //TODO: implement this (return something other than null)
-        return null;
+        return timestamp;
     }
 
     /**
@@ -72,8 +84,7 @@ public abstract class Message
      */
     public String getUsername()
     {
-        //TODO: implement this (return something other than null)
-        return null;
+        return username;
     }
 
     /**
@@ -126,7 +137,6 @@ public abstract class Message
      */
     public String toString()
     {
-        //TODO: implement this (return what is described in the JavaDoc instead of null)
-        return null;
+        return "timestamp=" + timestamp + "|username=" + username;
     }
 }

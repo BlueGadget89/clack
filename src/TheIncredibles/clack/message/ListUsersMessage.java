@@ -37,7 +37,7 @@ public class ListUsersMessage extends Message
     }
 
     /**
-     * Equality comparison. Returns true iff the other object is of
+     * Equality comparison. Returns true if the other object is of
      * the same class and all fields (including those inherited from
      * superclasses) are equal.
      *
