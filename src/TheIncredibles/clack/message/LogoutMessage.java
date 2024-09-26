@@ -1,5 +1,7 @@
 package TheIncredibles.clack.message;
 
+import java.util.Objects;
+
 /**
  * This class represents a command to the server, asking for
  * termination of the connection.
@@ -15,7 +17,6 @@ public class LogoutMessage extends Message
      */
     public LogoutMessage(String username)
     {
-        //TODO: Implement this. Use ListUsersMessage class as an example);
         super(username, MSGTYPE_LOGOUT);
     }
 
@@ -28,12 +29,11 @@ public class LogoutMessage extends Message
     @Override
     public String[] getData()
     {
-        //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
         return new String[0];
     }
 
     /**
-     * Equality comparison. Returns true iff the other object is of
+     * Equality comparison. Returns true if the other object is of
      * the same class and all fields (including those inherited from
      * superclasses) are equal.
      *
@@ -44,8 +44,15 @@ public class LogoutMessage extends Message
     @Override
     public boolean equals(Object o)
     {
-        //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
-        return false;
+        if (this == o) return true; // Check if both references point to the same object
+        if (o == null || getClass() != o.getClass()) return false; // Check for null and class type
+
+        LogoutMessage that = (LogoutMessage) o;
+        return Objects.equals(this.getTimestamp(), that.getTimestamp())
+                && Objects.equals(this.getUsername(), that.getUsername());
+        //  if (!super.equals(o)) return false; // Call super.equals() to compare inherited fields (timestamp and username)
+
+       // return true; // Since LogoutMessage has no additional fields, we can return true here
     }
 
     /**
@@ -57,7 +64,6 @@ public class LogoutMessage extends Message
     @Override
     public int hashCode()
     {
-        //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
         return 0;
     }
 
@@ -70,7 +76,6 @@ public class LogoutMessage extends Message
     @Override
     public String toString()
     {
-        //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
-        return "TEST LOGOUT!!!!";
+        return "{class=LogoutMessage|" + super.toString() + "}";
     }
 }
