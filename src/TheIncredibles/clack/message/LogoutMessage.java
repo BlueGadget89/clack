@@ -16,6 +16,7 @@ public class LogoutMessage extends Message
     public LogoutMessage(String username)
     {
         //TODO: Implement this. Use ListUsersMessage class as an example);
+        super(username, MSGTYPE_LOGOUT);
     }
 
     /**
@@ -28,6 +29,7 @@ public class LogoutMessage extends Message
     public String[] getData()
     {
         //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
+        return new String[0];
     }
 
     /**
@@ -69,6 +71,6 @@ public class LogoutMessage extends Message
     public String toString()
     {
         //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
-        return null;
+        return "TEST LOGOUT!!!!";
     }
 }
