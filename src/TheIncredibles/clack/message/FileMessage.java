@@ -2,6 +2,10 @@ package TheIncredibles.clack.message;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.util.Objects;
 
 /**
  * This class represents messages containing the name and
@@ -31,10 +35,9 @@ public class FileMessage extends Message
     {
         super(username, MSGTYPE_FILE);
         this.filePath = filePath;
-        //TODO: parse the filename portion of fileSaveAsPath, and assign
-        // it to this.fileSaveAsName. NOTE: There are Java library routines
-        // for manipulating file paths and names. Don't re-invent!
-        this.fileSaveAsName = null;
+        //parse the filename portion of fileSaveAsPath
+        Path path = Paths.get(fileSaveAsPath);
+        this.fileSaveAsName = path.getFileName().toString();
         // This really should be null when object is created.
         this.fileContents = null;
     }
@@ -69,8 +72,7 @@ public class FileMessage extends Message
      * @return the path where the file is to be written.
      */
     public String getFileSaveAsName() {
-        //TODO: Implement this. Return something other than null.
-        return null;
+        return this.fileSaveAsName;
     }
 
     /**
@@ -81,7 +83,8 @@ public class FileMessage extends Message
      */
     public void setFilePath(String filePath)
     {
-        //TODO: Implement this.
+        this.filePath = filePath;
+        //might be nice to add some validation
     }
 
     /**
@@ -94,8 +97,12 @@ public class FileMessage extends Message
      */
     public void setFileSaveAsName(String fileSaveAsName)
     {
-        //TODO: implement this. Remember that Java has libraries
-        //  for manipulating file paths and names.
+        Path path = Paths.get(fileSaveAsName);
+        if(path.getNameCount() > 1)
+        {
+            throw new IllegalArgumentException("fileSaveAsName contains path components");
+        }
+        this.fileSaveAsName = fileSaveAsName;
     }
 
     /**
@@ -110,15 +117,13 @@ public class FileMessage extends Message
     @Override
     public String[] getData()
     {
-        //TODO: Implement this. Return an array as described in the
-        //  JavaDoc, not null.
-        return null;
+        return new String[]{filePath,fileSaveAsName,fileContents};
     }
 
     /**
-     * Read contents of file 'fileName' into this message's fileContents.
+     * Read contents of file 'filePath' into this message's fileContents.
      *
-     * @throws IOException if the file named by this.filename does
+     * @throws IOException if the file named by this.filPath does
      * not exist or cannot be opened for reading.
      */
     /* Since Java 11, there's an easy way to do this. It even handles
@@ -128,7 +133,16 @@ public class FileMessage extends Message
      */
     public void readFile() throws IOException
     {
-        //TODO: Implement this.
+        Path path = Paths.get(this.filePath);
+        if(!Files.exists(path))
+        {
+            throw new FileNotFoundException("File does not exist: " + this.filePath);
+        }
+        if(!Files.isReadable(path))
+        {
+            throw new FileNotFoundException("File is not readable: " + this.filePath);
+        }
+        this.fileContents = Files.readString(path);
     }
 
     /**
@@ -148,21 +162,33 @@ public class FileMessage extends Message
     @Override
     public String toString()
     {
-        //TODO: Implement this. Should be similar to TextMessage class,
-        //  but include filePath, fileSaveAsName, and fileContents.
-        return null;
+        return "{class=FileMessage|" + super.toString() +
+                "|filePath=" + this.filePath +
+                "|fileSaveAsName=" + this.fileSaveAsName +
+                "|fileContents=" + this.fileContents + "}";
     }
 
     @Override
     public boolean equals(Object o)
     {
-        //TODO: Implement this.
+        //check if object is being compared to itself
+        if (this == o) return true;
+        //check if object is null or not of the same class
+        if (o == null || getClass() != o.getClass()) return false;
+        //Cast to FileMessage
+        FileMessage that = (FileMessage) o;
+        //Compare all relevant fields
+        return Objects.equals(filePath, that.filePath) &&
+                Objects.equals(fileSaveAsName, that.fileSaveAsName) &&
+                Objects.equals(fileContents, that.fileContents) &&
+                Objects.equals(getUsername(), that.getUsername()) && //not sure if this needs to be called
+                Objects.equals(getTimestamp(), that.getTimestamp()); //same as above
     }
 
     @Override
     public int hashCode()
     {
-        //TODO: Implement this.
+        return Objects.hash(filePath, fileSaveAsName, fileContents, getUsername(), getTimestamp());
     }
 
 }
