@@ -157,12 +157,14 @@ public class FileMessage extends Message
     public boolean equals(Object o)
     {
         //TODO: Implement this.
+        return true;
     }
 
     @Override
     public int hashCode()
     {
         //TODO: Implement this.
+        return 4;
     }
 
 }

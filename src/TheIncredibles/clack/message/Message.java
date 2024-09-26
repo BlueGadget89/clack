@@ -51,7 +51,7 @@ public abstract class Message
     public int getMsgType()
     {
         //TODO: implement this (return something other than null)
-        return null;
+        return 5;
     }
 
     /**
@@ -62,7 +62,7 @@ public abstract class Message
     public LocalDate getTimestamp()
     {
         //TODO: implement this (return something other than null)
-        return null;
+        return timestamp;
     }
 
     /**
