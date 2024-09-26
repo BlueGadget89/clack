@@ -90,7 +90,33 @@ public class Client
         while (true) {
             messageToSend = readUserInput(); //prompt the user & read their input
             messageReceived = messageToSend;
-            printMessage();
+
+            int typeOfMsg = messageReceived.getMsgType(); //get the type of message
+            switch (typeOfMsg){
+                case 0: //encryption
+                    //do sth
+                case 10: //file
+                    //do sth
+                case 20: //list users
+                    //do sth
+                case 30: //logout
+                    break;
+                case 40: //text
+                    //do sth
+            }
+
+            if (typeOfMsg == 10){
+                System.out.println("Exiting System. Goodbye. |˶˙ᵕ˙ )ﾉﾞ ");
+            }
+
+               //figure out what to do with this message
+            //logout message - exit this repl loop, print a goodbye message
+            //listusers message - call tostring method()
+            //FILE MESSAGE - call readfile (this will populate the file contents). Client should dump filecontents into fp2  WRITEFILE METHOD
+            //TEXT MESSAGE
+            //HELP MESSAGE -  use getdata() (list of commands)
+
+            //printMessage();
         }
     }
 
@@ -104,15 +130,18 @@ public class Client
     {
             Scanner myScanner = new Scanner(System.in);  // Create a Scanner object
             System.out.print("What would you like to do?: "); //prompt user
-            String userResponse = myScanner.nextLine().toLowerCase();  // Read user input
+            String userResponse = myScanner.nextLine().toLowerCase().trim();  // Read user input, lowercase & trim
 
             //save the input to an array, but split the input by spaces
-            String[] userResponseArray = userResponse.split(" ");
+            String[] userResponseArray = userResponse.split("\\s+"); //split by one or more whitespaces
+
+            //TODO: do the case insensitive match at the point you need it
 
             //logout case
-            if (userResponseArray[0].equals("logout")) {
+            if (userResponseArray[0].equalsIgnoreCase("logout")) {
                 //toContinue = false;
-                System.exit(0); //exit the program
+                return new LogoutMessage(username);
+                //System.exit(0); //exit the program
 
                 //list users case
             } else if (userResponseArray[0].equals("list") && Objects.equals(userResponseArray[1], "users")) {
@@ -129,15 +158,16 @@ public class Client
                 //fp1 is empty
             } else if (userResponseArray[0].equals("send") && Objects.equals(userResponseArray[1], "file") && Objects.equals(userResponseArray[2], "")) {
                 return new FileMessage(username, fileSaveAsPath, fileSaveAsPath);
+
+                //help case
             } else if (userResponseArray[0].equals("help")) {
-                System.out.println("Command Options:");
-                System.out.println("LOGOUT");
-                System.out.println("LIST USERS");
-                System.out.println("SEND FILE");
-                System.out.println("ENCRYPTION KEY");
-                System.out.println("ENCRYPTION");
+                Help();
             } else {
                 System.out.println("ERROR");
+                //TODO: return to start()
+                return;
+
+                //todo: IF IT DOES NOT MATCH ONE OF THE CMDS, MAKE A TEXT MESSAGE OBJECT
             }
         return null; //TODO: ASK PROF: do I need a return statement here?
     }
@@ -150,6 +180,21 @@ public class Client
     public void printMessage()
     {
         System.out.println(messageReceived.toString());
+    }
+
+    //TODO: Javadoc
+    /**
+
+     */
+    public void Help()
+    {
+        System.out.println("Command Options:");
+        System.out.println("LOGOUT");
+        System.out.println("LIST USERS");
+        System.out.println("SEND FILE");
+        System.out.println("ENCRYPTION KEY");
+        System.out.println("ENCRYPTION");
+        //TODO: return to start()
     }
 
     /**
