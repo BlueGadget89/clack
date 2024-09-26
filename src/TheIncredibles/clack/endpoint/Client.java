@@ -95,22 +95,22 @@ public class Client
             switch (typeOfMsg){
                 case 0: //encryption
                     //do sth
+                    System.out.println("¯_(ツ)_/¯");
                 case 10: //file
                     //do sth
                 case 20: //list users
-                    //do sth
+                    printMessage(); //calls toString method()
                 case 30: //logout
                     break;
                 case 40: //text
                     //do sth
             }
 
-            if (typeOfMsg == 10){
-                System.out.println("Exiting System. Goodbye. |˶˙ᵕ˙ )ﾉﾞ ");
+            if (typeOfMsg == 30){
+                System.out.println("Exiting System. Goodbye. |˶˙ᵕ˙ )ﾉﾞ "); //if logout is pressed, print goodbye
             }
 
                //figure out what to do with this message
-            //logout message - exit this repl loop, print a goodbye message
             //listusers message - call tostring method()
             //FILE MESSAGE - call readfile (this will populate the file contents). Client should dump filecontents into fp2  WRITEFILE METHOD
             //TEXT MESSAGE
