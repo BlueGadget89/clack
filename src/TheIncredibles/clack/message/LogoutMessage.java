@@ -50,9 +50,6 @@ public class LogoutMessage extends Message
         LogoutMessage that = (LogoutMessage) o;
         return Objects.equals(this.getTimestamp(), that.getTimestamp())
                 && Objects.equals(this.getUsername(), that.getUsername());
-        //  if (!super.equals(o)) return false; // Call super.equals() to compare inherited fields (timestamp and username)
-
-       // return true; // Since LogoutMessage has no additional fields, we can return true here
     }
 
     /**
