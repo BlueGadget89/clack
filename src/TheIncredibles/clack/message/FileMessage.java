@@ -133,16 +133,16 @@ public class FileMessage extends Message
      */
     public void readFile() throws IOException
     {
-        Path path = Paths.get(this.filePath);
-        if(!Files.exists(path))
+        Path file = Paths.get(this.filePath);
+        if(!Files.exists(file))
         {
             throw new FileNotFoundException("File does not exist: " + this.filePath);
         }
-        if(!Files.isReadable(path))
+        if(!Files.isReadable(file))
         {
             throw new FileNotFoundException("File is not readable: " + this.filePath);
         }
-        this.fileContents = Files.readString(path);
+        this.fileContents = Files.readString(file);
     }
 
     /**
@@ -153,10 +153,17 @@ public class FileMessage extends Message
      */
     public void writeFile() throws FileNotFoundException
     {
-        // TODO: Implement this. Use try-with-resources to ensure
-        //   output file is closed.
-        // HOLD OFF FOR NOW ON IMPLEMENTING THIS. There is a design
-        //   issue that we'll discuss in class.
+        if (this.fileContents == null || this.fileSaveAsName == null) {
+            throw new FileNotFoundException("File contents or save file name is null.");
+        }
+
+        Path outputPath = Paths.get(this.fileSaveAsName);
+
+        try {
+            Files.writeString(outputPath, this.fileContents);
+        } catch (IOException e) {
+            throw new FileNotFoundException("Error writing to file: " + this.fileSaveAsName);
+        }
     }
 
     @Override
@@ -181,8 +188,8 @@ public class FileMessage extends Message
         return Objects.equals(filePath, that.filePath) &&
                 Objects.equals(fileSaveAsName, that.fileSaveAsName) &&
                 Objects.equals(fileContents, that.fileContents) &&
-                Objects.equals(getUsername(), that.getUsername()) && //not sure if this needs to be called
-                Objects.equals(getTimestamp(), that.getTimestamp()); //same as above
+                Objects.equals(getUsername(), that.getUsername()) &&
+                Objects.equals(getTimestamp(), that.getTimestamp());
     }
 
     @Override
@@ -190,5 +197,4 @@ public class FileMessage extends Message
     {
         return Objects.hash(filePath, fileSaveAsName, fileContents, getUsername(), getTimestamp());
     }
-
 }

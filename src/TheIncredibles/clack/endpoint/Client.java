@@ -19,7 +19,6 @@ public class Client
     private final String username;
     private final String serverName;
     private final int serverPort;
-    private final String saveDirectory;
     private Message messageToSend;
     private Message messageReceived;
 
@@ -94,7 +93,7 @@ public class Client
                 + "|username=" + this.username
                 + "|serverName=" + this.serverName
                 + "|serverPort=" + this.serverPort
-                + "|messageToSend={" + this.messageToSent.toString() + "}"
+                + "|messageToSend={" + this.messageToSend.toString() + "}"
                 + "|messageReceived={" + this.messageReceived.toString() + "}"
                 + "}";
     }
