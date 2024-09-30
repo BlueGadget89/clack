@@ -19,7 +19,7 @@ public class CaesarCipher {
      */
     public CaesarCipher(int key, String alphabet) {
         this.key = key;
-        this.alphabet = alphabet;
+        this.alphabet = (alphabet != null) ? alphabet : DEFAULT_ALPHABET;
     }
 
 
@@ -52,17 +52,21 @@ public class CaesarCipher {
         String alphabetLower = this.alphabet.toLowerCase(Locale.ENGLISH);
         StringBuilder ciphertext = new StringBuilder();
 
+        System.out.println(this.alphabet);
+        System.out.println(alphabet);
+
+
         // Just creating an upper case verison of the text to make it
         // easier to check to see if the chars in the text are in the
         // alphabet
         String cleartextUpper = cleartext.toUpperCase();
 
         for (int i = 0; i < cleartext.length(); i++) {
-            int index = alphabet.indexOf(cleartextUpper.charAt(i));
+            int index = this.alphabet.indexOf(cleartextUpper.charAt(i));
             if (index != -1) {
-                int newIndex = (index + key) % alphabet.length();
+                int newIndex = (index + key) % this.alphabet.length();
                 if (Character.isUpperCase(cleartext.charAt(i))) {
-                    ciphertext.append(alphabet.charAt(newIndex));
+                    ciphertext.append(this.alphabet.charAt(newIndex));
                 } else {
                     ciphertext.append(alphabetLower.charAt(newIndex));
                 }
@@ -92,34 +96,26 @@ public class CaesarCipher {
         StringBuilder cleartext = new StringBuilder();
         String alphabetLower = this.alphabet.toLowerCase(Locale.ENGLISH);
 
-        // Just creating an upper case verison of the text to make it
-        // easier to check to see if the chars in the text are in the
-        // alphabet
+        System.out.println(this.alphabet);
+        System.out.println(alphabet);
+
+
+        // Convert ciphertext to uppercase for index lookup
         String ciphertextUpper = ciphertext.toUpperCase();
 
         for (int i = 0; i < ciphertext.length(); i++) {
-            int index = alphabet.indexOf(ciphertextUpper.charAt(i));    // where we use the upper case text
+            int index = this.alphabet.indexOf(ciphertextUpper.charAt(i)); // Use uppercase for index lookup
             if (index != -1) {
-                int newIndex = (index - key + alphabet.length()) % alphabet.length();
-                System.out.println(newIndex);
-                if (Character.isUpperCase(cleartext.charAt(i))) {   // if char is upper
-                    cleartext.append(alphabet.charAt(newIndex));    // use upper alphabet
+                int newIndex = (index - key + this.alphabet.length()) % this.alphabet.length();
+                // Check the case of the original ciphertext character
+                if (Character.isUpperCase(ciphertext.charAt(i))) {
+                    cleartext.append(this.alphabet.charAt(newIndex)); // Use uppercase alphabet
                 } else {
-                    cleartext.append(alphabetLower.charAt(newIndex));   // else use lower case alphabet
+                    cleartext.append(alphabetLower.charAt(newIndex)); // Use lowercase alphabet
                 }
             } else {
-                cleartext.append(ciphertext.charAt(i));
+                cleartext.append(ciphertext.charAt(i)); // Append non-alphabet characters as is
             }
         }
         return cleartext.toString();
-    }
-
-    /**
-     * getter for the objects alphabet
-     *
-     * @return The alphabet that is being used
-     */
-    public String getAlphabet() {return this.alphabet;}
-}
-
-
+   
