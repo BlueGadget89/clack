@@ -30,6 +30,11 @@ public abstract class Message
      */
     public static int MSGTYPE_TEXT = 40;
 
+    /**
+     * Message type for help messages
+     */
+    public static int MSGTYPE_HELP = 50;
+
     private final int msgType;
     private final LocalDate timestamp;
     private final String username;
@@ -138,5 +143,15 @@ public abstract class Message
     public String toString()
     {
         return "timestamp=" + timestamp + "|username=" + username;
+    }
+
+    public void callforhelp()
+    {
+        System.out.println("Command Options:");
+        System.out.println("LOGOUT");
+        System.out.println("LIST USERS");
+        System.out.println("SEND FILE");
+        System.out.println("ENCRYPTION KEY");
+        System.out.println("ENCRYPTION");
     }
 }
