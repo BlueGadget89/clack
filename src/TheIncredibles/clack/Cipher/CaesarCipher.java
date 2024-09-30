@@ -26,7 +26,7 @@ public class CaesarCipher {
     /**
      * Constructor to initialize the CaesarCipher with a key and an optional alphabet.
      *
-     * @param key      The number of positions to shift the characters.
+     * @param key The number of positions to shift the characters.
      */
     public CaesarCipher(int key) {
         this.key = key;
@@ -34,16 +34,16 @@ public class CaesarCipher {
     }
 
     /**
-     *  Method that is used for encrypting messages using Caeser
-     *
-     *  Cipher text can include special characters like "?", "$", "!" etc, the
-     *  special characters just won't be encrypted, they will be returned in
-     *  in the encrypted message as is.
-     *
-     *  The method is case-sensitive, so it will carry over the specific case of
-     *  the letters in the string.
-     *
-     *  EX -> 'Dog!' (with standard alphabet and a key of '3') would return 'Grj!'.
+     * Method that is used for encrypting messages using Caeser
+     * <p>
+     * Cipher text can include special characters like "?", "$", "!" etc, the
+     * special characters just won't be encrypted, they will be returned in
+     * in the encrypted message as is.
+     * <p>
+     * The method is case-sensitive, so it will carry over the specific case of
+     * the letters in the string.
+     * <p>
+     * EX -> 'Dog!' (with standard alphabet and a key of '3') would return 'Grj!'.
      *
      * @param cleartext The text to be encrypted.
      * @return The encrypted ciphertext.
@@ -79,15 +79,15 @@ public class CaesarCipher {
 
     /**
      * Decrypts the given ciphertext using the Caesar cipher.
-     *
-     *  Cipher text can include special characters like "?", "$", "!" etc, the
-     *  special characters just won't be encrypted, they will be returned in
-     *  in the encrypted message as is.
-     *
-     *  The method is case-sensitive, so it will carry over the specific case of
-     *  the letters in the string.
-     *
-     *  EX -> 'Grj!' (with standard alphabet and a key of '3') would return 'Dog!'.
+     * <p>
+     * Cipher text can include special characters like "?", "$", "!" etc, the
+     * special characters just won't be encrypted, they will be returned in
+     * in the encrypted message as is.
+     * <p>
+     * The method is case-sensitive, so it will carry over the specific case of
+     * the letters in the string.
+     * <p>
+     * EX -> 'Grj!' (with standard alphabet and a key of '3') would return 'Dog!'.
      *
      * @param ciphertext The text to be decrypted.
      * @return The decrypted cleartext.
@@ -118,4 +118,15 @@ public class CaesarCipher {
             }
         }
         return cleartext.toString();
-   
+    }
+
+
+    /**
+     * getter for the objects alphabet
+     *
+     * @return The alphabet that is being used
+     */
+    public String getAlphabet() {return this.alphabet;}
+}
+
+
