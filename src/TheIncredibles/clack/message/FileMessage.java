@@ -39,7 +39,7 @@ public class FileMessage extends Message
         Path path = Paths.get(fileSaveAsPath);
         this.fileSaveAsName = path.getFileName().toString();
         // This really should be null when object is created.
-        this.fileContents = null;
+        this.fileContents = "";
     }
 
     /**
@@ -196,5 +196,14 @@ public class FileMessage extends Message
     public int hashCode()
     {
         return Objects.hash(filePath, fileSaveAsName, fileContents, getUsername(), getTimestamp());
+    }
+
+    /**
+     * getter function for FileContents
+     *
+     * @return the objects file content
+     */
+    public String getFileContents(){
+        return this.fileContents;
     }
 }

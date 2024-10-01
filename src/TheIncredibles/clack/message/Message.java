@@ -1,6 +1,7 @@
 package TheIncredibles.clack.message;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Abstract base class for Clack messages.
@@ -31,7 +32,7 @@ public abstract class Message
     public static int MSGTYPE_TEXT = 40;
 
     private final int msgType;
-    private final LocalDate timestamp;
+    private final LocalDateTime timestamp;
     private final String username;
 
     /**
@@ -47,7 +48,7 @@ public abstract class Message
      */
     protected Message(String username, int msgType)
     {
-        this.timestamp = LocalDate.now();
+        this.timestamp = LocalDateTime.now();
         this.username = username;
         this.msgType = msgType;
     }
@@ -72,7 +73,7 @@ public abstract class Message
      *
      * @return the message's timestamp (as a LocalDate).
      */
-    public LocalDate getTimestamp()
+    public LocalDateTime getTimestamp()
     {
         return timestamp;
     }
