@@ -161,7 +161,7 @@ public class Client
                 System.out.println("inside send 'as'");
                 return new FileMessage(username, filePath, fileSaveAsPath);
             } else {
-                return new TextMessage(username, userResponse); //TODO: check if this worked
+                return new HelpMessage(username);
             }
 
             //fp1 is not empty and "AS" was NOT specified [SEND FILE fp1]
@@ -176,7 +176,7 @@ public class Client
                     userResponseArray[1].equalsIgnoreCase("key")) {
                 System.out.println("encryption with key");
             } else {
-                return new TextMessage(username, userResponse); //TODO: check if this worked
+                return new HelpMessage(username);
             }
 
             //fp1 is empty [SEND FILE ] //TODO: interpret as a call for help
@@ -189,7 +189,7 @@ public class Client
                     userResponseArray[1].equalsIgnoreCase("OFF")) {
                 System.out.println("on off encryption");
             } else {
-                return new TextMessage(username, userResponse);
+                return new HelpMessage(username);
             }
         } else if (userResponseArray.length == 1) {
             if (userResponseArray[0].equals("help")) {
@@ -200,7 +200,7 @@ public class Client
             //treat it as a text if a command was not entered
         }
         else {
-            return new TextMessage(username, userResponse);
+            return new HelpMessage(username);
         }
         return new TextMessage(username, userResponse);
     }
