@@ -1,5 +1,10 @@
 package TheIncredibles.clack.message;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 
 /**
@@ -30,9 +35,17 @@ public abstract class Message
      */
     public static int MSGTYPE_TEXT = 40;
 
+    /**
+     * Message type for help messages
+     */
+    public static int MSGTYPE_HELP = 50;
+
     private final int msgType;
     private final LocalDate timestamp;
     private final String username;
+    private String filePath;
+    private String fileSaveAsName;
+    private String fileContents;
 
     /**
      * Constructs a Message object with a given username.
@@ -138,5 +151,36 @@ public abstract class Message
     public String toString()
     {
         return "timestamp=" + timestamp + "|username=" + username;
+    }
+
+    public void callforhelp()
+    {
+        System.out.println("Command Options:");
+        System.out.println("LOGOUT");
+        System.out.println("LIST USERS");
+        System.out.println("SEND FILE");
+        System.out.println("ENCRYPTION KEY");
+        System.out.println("ENCRYPTION");
+    }
+
+    /**
+     * Write this message's fileContents to the local Clack directory.
+     *
+     * @throws FileNotFoundException if file cannot be found or created,
+     * or opened for writing.
+     */
+    public void writeFile() throws FileNotFoundException
+    {
+        if (this.fileContents == null || this.fileSaveAsName == null) {
+            throw new FileNotFoundException("File contents or save file name is null.");
+        }
+
+        Path outputPath = Paths.get(this.fileSaveAsName);
+
+        try {
+            Files.writeString(outputPath, this.fileContents);
+        } catch (IOException e) {
+            throw new FileNotFoundException("Error writing to file: " + this.fileSaveAsName);
+        }
     }
 }

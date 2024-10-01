@@ -39,7 +39,7 @@ public class FileMessage extends Message
         Path path = Paths.get(fileSaveAsPath);
         this.fileSaveAsName = path.getFileName().toString();
         // This really should be null when object is created.
-        this.fileContents = null;
+        this.fileContents = "";
     }
 
     /**
