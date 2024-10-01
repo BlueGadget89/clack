@@ -52,11 +52,11 @@ public class CaesarCipher {
         String alphabetLower = this.alphabet.toLowerCase(Locale.ENGLISH);
         StringBuilder ciphertext = new StringBuilder();
 
+        // Debugging output
         System.out.println(this.alphabet);
         System.out.println(alphabet);
 
-
-        // Just creating an upper case verison of the text to make it
+        // Just creating an upper case version of the text to make it
         // easier to check to see if the chars in the text are in the
         // alphabet
         String cleartextUpper = cleartext.toUpperCase();
@@ -96,9 +96,9 @@ public class CaesarCipher {
         StringBuilder cleartext = new StringBuilder();
         String alphabetLower = this.alphabet.toLowerCase(Locale.ENGLISH);
 
+        // Debugging output
         System.out.println(this.alphabet);
         System.out.println(alphabet);
-
 
         // Convert ciphertext to uppercase for index lookup
         String ciphertextUpper = ciphertext.toUpperCase();

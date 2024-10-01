@@ -7,8 +7,10 @@ public class CipherTester {
 
         String customAlphabet = "XYZABCDEFGHIJKLMNOPQRSTUVW";
         CaesarCipher cipher = new CaesarCipher(3, customAlphabet);
-        String cleartext = "EBIIL TLOIA";
-        String decrpt = cipher.decrypt(cleartext);
-        System.out.println(cipher.getAlphabet());
+        String cleartext = "Wklv lv d whvw phvvdjh";
+        String decrpt = cipher.encrypt(cleartext);
+        System.out.println(decrpt);
+        String de = cipher.decrypt(cleartext);
+        System.out.println(de);
     }
 }

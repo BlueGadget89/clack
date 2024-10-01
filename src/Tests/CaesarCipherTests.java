@@ -53,8 +53,8 @@ public class CaesarCipherTests {
     public void testEncryptWithCustomAlphabet() {
         String customAlphabet = "XYZABCDEFGHIJKLMNOPQRSTUVW";
         CaesarCipher cipher = new CaesarCipher(3, customAlphabet);
-        String cleartext = "HELLO WORLD";
-        String expectedCiphertext = "EBIIL TLOIA";
+        String cleartext = "This is a test message.";
+        String expectedCiphertext = "Wklv lv d whvw phvvdjh.";
         String actualCiphertext = cipher.encrypt(cleartext);
         assertEquals(expectedCiphertext, actualCiphertext);
     }
@@ -63,8 +63,8 @@ public class CaesarCipherTests {
     public void testDecryptWithCustomAlphabet() {
         String customAlphabet = "XYZABCDEFGHIJKLMNOPQRSTUVW";
         CaesarCipher cipher = new CaesarCipher(3, customAlphabet);
-        String ciphertext = "EBIIL TLOIA";
-        String expectedCleartext = "HELLO WORLD";
+        String ciphertext = "Wklv lv d whvw phvvdjh.";
+        String expectedCleartext = "This is a test message.";
         String actualCleartext = cipher.decrypt(ciphertext);
         assertEquals(expectedCleartext, actualCleartext);
     }
