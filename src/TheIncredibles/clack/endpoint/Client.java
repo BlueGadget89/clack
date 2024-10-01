@@ -3,6 +3,7 @@ package TheIncredibles.clack.endpoint;
 import TheIncredibles.clack.message.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -86,30 +87,30 @@ public class Client
     /**
      * Message type for encrypted messages
      */
-    public static int MSGTYPE_ENCRYPTION = 0;
+    public final int MSGTYPE_ENCRYPTION = 0;
     /**
      * Message type for file transfer messages
      */
-    public static int MSGTYPE_FILE = 10;
+    public final int MSGTYPE_FILE = 10;
     /**
      * Message type for requesting a list of active users on the server.
      */
-    public static int MSGTYPE_LISTUSERS = 20;
+    public final int MSGTYPE_LISTUSERS = 20;
     /**
      * Message type for logging out from the server
      */
-    public static int MSGTYPE_LOGOUT = 30;
+    public final int MSGTYPE_LOGOUT = 30;
     /**
      * Message type for text messages sent between users
      */
-    public static int MSGTYPE_TEXT = 40;
+    public final int MSGTYPE_TEXT = 40;
 
     /**
      * Message type for help messages
      */
-    public static int MSGTYPE_HELP = 50;
+    public final int MSGTYPE_HELP = 50;
 
-    public void start()
+    public void start() throws FileNotFoundException
     {
         outsideWhileloop:
         while (true) {
@@ -122,25 +123,25 @@ public class Client
                     System.out.println("Do some encryption"); //TODO: encryption
                     break;
 
-                case 10: //send file
+                case MSGTYPE_FILE: //send file
                     //use the write file method
                     System.out.println("Use writefile() to dump filecontents into fp2"); //TODO: writefile
                     messageReceived.writeFile();
                     break;
 
-                case 20: //list users
+                case MSGTYPE_LISTUSERS: //list users
                     printMessage(); //calls toString method() //TODO: should query the server for all connected users
                     break;
 
-                case 30: //logout
+                case MSGTYPE_LOGOUT: //logout
                     break; //exit out of this loop, then print the goodbye message
 
-                case 40: //text
+                case MSGTYPE_TEXT: //text
                     String[] out = messageReceived.getData(); //print text??
                     System.out.println(out[0]);
                     break;
 
-                case 50: //help
+                case MSGTYPE_HELP: //help
                     messageReceived.callforhelp(); //print text??
                     break;
             }
@@ -149,8 +150,6 @@ public class Client
                 System.out.println("Exiting System. Goodbye. |˶˙ᵕ˙ )ﾉﾞ "); //if logout is pressed, print goodbye
                 break outsideWhileloop; //breakout of while loop
             }
-            ;
-            //HELP MESSAGE -  use getdata() (list of commands)
         }
     }
 
@@ -189,7 +188,6 @@ public class Client
                 System.out.println("inside send 'as'");
                 return new FileMessage(username, filePath, fileSaveAsPath);
             }
-
             //send file case
             //fp1 is not empty and "AS" was NOT specified [SEND FILE fp1]
         } else if (userResponseArray.length == 3) {
@@ -206,6 +204,7 @@ public class Client
                 System.out.println("encryption with key");
                 //TODO: return something
             }
+
             //send file case
             //fp1 is empty [SEND FILE ]
         } else if (userResponseArray.length == 2) {
@@ -219,9 +218,11 @@ public class Client
                     userResponseArray[1].equalsIgnoreCase("ON") ||
                     userResponseArray[1].equalsIgnoreCase("OFF")) {
                 System.out.println("on off encryption");
-            //TODO: return something
-                //help case
+                //TODO: return something
+
             }
+
+            //help case
         } else if (userResponseArray[0].equalsIgnoreCase("help")) {
             return new HelpMessage(username);
         } else {

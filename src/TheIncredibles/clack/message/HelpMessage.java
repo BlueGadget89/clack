@@ -11,13 +11,12 @@ public class HelpMessage extends Message
     public void callforhelp()
     {
         System.out.println("Command Options:");
-        System.out.println("LOGOUT");
-        System.out.println("LIST USERS");
-        System.out.println("SEND FILE");
-        System.out.println("ENCRYPTION KEY");
-        System.out.println("ENCRYPTION");
-        System.out.println("SEND FILE SYNTAX: SEND FILE filepath1 AS filepath2");
-        System.out.println("SEND FILE SYNTAX: SEND FILE filepath1");
+        System.out.println("    LOGOUT");
+        System.out.println("    LIST USERS");
+        System.out.println("    ENCRYPTION KEY");
+        System.out.println("    ENCRYPTION");
+        System.out.println("    SEND FILE");
+        System.out.println("    syntax: SEND FILE filepath1 {AS filepath2}");
     }
 
     @Override
