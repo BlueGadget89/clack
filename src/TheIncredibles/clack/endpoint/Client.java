@@ -82,6 +82,33 @@ public class Client
      * the reply, print info for user; repeat until
      * user enters "LOGOUT".
      */
+
+    /**
+     * Message type for encrypted messages
+     */
+    public static int MSGTYPE_ENCRYPTION = 0;
+    /**
+     * Message type for file transfer messages
+     */
+    public static int MSGTYPE_FILE = 10;
+    /**
+     * Message type for requesting a list of active users on the server.
+     */
+    public static int MSGTYPE_LISTUSERS = 20;
+    /**
+     * Message type for logging out from the server
+     */
+    public static int MSGTYPE_LOGOUT = 30;
+    /**
+     * Message type for text messages sent between users
+     */
+    public static int MSGTYPE_TEXT = 40;
+
+    /**
+     * Message type for help messages
+     */
+    public static int MSGTYPE_HELP = 50;
+
     public void start()
     {
         outsideWhileloop:
@@ -91,13 +118,14 @@ public class Client
 
             int typeOfMsg = messageReceived.getMsgType(); //get the type of message
             switch (typeOfMsg) {
-                case 0: //encryption
+                case MSGTYPE_ENCRYPTION: //encryption
                     System.out.println("Do some encryption"); //TODO: encryption
                     break;
 
                 case 10: //send file
                     //use the write file method
                     System.out.println("Use writefile() to dump filecontents into fp2"); //TODO: writefile
+                    messageReceived.writeFile();
                     break;
 
                 case 20: //list users
@@ -155,52 +183,49 @@ public class Client
         } else if (userResponseArray.length == 5) {
             if (userResponseArray[0].equalsIgnoreCase("send") &&
                     userResponseArray[1].equalsIgnoreCase("file") &&
-                    userResponseArray[3].equalsIgnoreCase("as")) { //if word was "as"
+                    userResponseArray[3].equalsIgnoreCase("as")) {
                 filePath = userResponseArray[2];
                 fileSaveAsPath = userResponseArray[4];
                 System.out.println("inside send 'as'");
                 return new FileMessage(username, filePath, fileSaveAsPath);
-            } else {
-                return new TextMessage(username, userResponse); //TODO: check if this worked
             }
 
+            //send file case
             //fp1 is not empty and "AS" was NOT specified [SEND FILE fp1]
-        } else if (userResponseArray.length == 3) { //if "fp1" is present
+        } else if (userResponseArray.length == 3) {
             if (userResponseArray[0].equalsIgnoreCase("send") &&
-                    userResponseArray[1].equalsIgnoreCase("file")) {
+                    userResponseArray[1].equalsIgnoreCase("file")) { //if "fp1" is present
                 filePath = userResponseArray[2];
                 fileSaveAsPath = userResponseArray[2];
                 System.out.println("inside send file");
                 return new FileMessage(username, filePath, fileSaveAsPath);
+
+                // encryption key case
             } else if (userResponseArray[0].equalsIgnoreCase("encryption") &&
                     userResponseArray[1].equalsIgnoreCase("key")) {
                 System.out.println("encryption with key");
-            } else {
-                return new TextMessage(username, userResponse); //TODO: check if this worked
+                //TODO: return something
             }
-
-            //fp1 is empty [SEND FILE ] //TODO: interpret as a call for help
+            //send file case
+            //fp1 is empty [SEND FILE ]
         } else if (userResponseArray.length == 2) {
             if (userResponseArray[0].equalsIgnoreCase("send") &&
                     userResponseArray[1].equalsIgnoreCase("file")) {
                 return new HelpMessage(username);
-            } else if (userResponseArray[0].equalsIgnoreCase("encryption") &&
+            } //return help message
+
+            //encryption on off case
+            else if (userResponseArray[0].equalsIgnoreCase("encryption") &&
                     userResponseArray[1].equalsIgnoreCase("ON") ||
                     userResponseArray[1].equalsIgnoreCase("OFF")) {
                 System.out.println("on off encryption");
-            } else {
-                return new TextMessage(username, userResponse);
+            //TODO: return something
+                //help case
             }
-        } else if (userResponseArray.length == 1) {
-            if (userResponseArray[0].equals("help")) {
-                return new HelpMessage(username);
-            } else {
-                return new TextMessage(username, userResponse);
-            }
-            //treat it as a text if a command was not entered
-        }
-        else {
-            return new TextMessage(username, userResponse);
+        } else if (userResponseArray[0].equalsIgnoreCase("help")) {
+            return new HelpMessage(username);
+        } else {
+            return new HelpMessage(username);
         }
         return new TextMessage(username, userResponse);
     }

@@ -16,6 +16,8 @@ public class HelpMessage extends Message
         System.out.println("SEND FILE");
         System.out.println("ENCRYPTION KEY");
         System.out.println("ENCRYPTION");
+        System.out.println("SEND FILE SYNTAX: SEND FILE filepath1 AS filepath2");
+        System.out.println("SEND FILE SYNTAX: SEND FILE filepath1");
     }
 
     @Override
