@@ -197,4 +197,13 @@ public class FileMessage extends Message
     {
         return Objects.hash(filePath, fileSaveAsName, fileContents, getUsername(), getTimestamp());
     }
+
+    /**
+     * getter function for FileContents
+     *
+     * @return the objects file content
+     */
+    public String getFileContents(){
+        return this.fileContents;
+    }
 }
