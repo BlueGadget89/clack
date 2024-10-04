@@ -1,4 +1,4 @@
-package Tests;
+package Tests.Message;
 
 import TheIncredibles.clack.message.FileMessage;
 import TheIncredibles.clack.message.Message;

@@ -1,4 +1,4 @@
-package Tests;
+package Tests.Cipher;
 
 import TheIncredibles.clack.Cipher.CaesarCipher;
 
